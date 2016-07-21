@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class ItemCatServiceImpl implements ItemCatService {
+
     @Autowired
     private TbItemCatMapper itemCatMapper;
 
@@ -23,7 +24,7 @@ public class ItemCatServiceImpl implements ItemCatService {
     public List<EUTreeNode> getCatList(long parentId) {
         TbItemCatExample example = new TbItemCatExample();
         TbItemCatExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(parentId);
+        criteria.andParentIdEqualTo(parentId);
         List<TbItemCat> list = itemCatMapper.selectByExample(example);
         List<EUTreeNode> resultList = new ArrayList<>();
         for (TbItemCat tbItemCat : list) {
