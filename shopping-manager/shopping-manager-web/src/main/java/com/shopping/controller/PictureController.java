@@ -1,5 +1,6 @@
 package com.shopping.controller;
 
+import com.shopping.common.utils.JsonUtils;
 import com.shopping.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import java.util.Map;
 public class PictureController {
     @Autowired
     private PictureService pictureService;
-    @ResponseBody
+
     @RequestMapping("/pic/upload")
-    public Map pictureUpload(MultipartFile uploadFile){
-        Map result=pictureService.uploadPicture(uploadFile);
-        return result;
+    @ResponseBody
+        public String pictureUpload(MultipartFile uploadFile) {
+        Map result = pictureService.uploadPicture(uploadFile);
+        String json = JsonUtils.objectToJson(result);
+        return json;
     }
 }
