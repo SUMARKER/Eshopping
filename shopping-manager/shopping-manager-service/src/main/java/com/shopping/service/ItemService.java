@@ -1,5 +1,6 @@
 package com.shopping.service;
 
+import com.shopping.common.pojo.EshoppingResult;
 import org.springframework.stereotype.Repository;
 
 import com.shopping.common.pojo.EUDataGridResult;
@@ -13,4 +14,6 @@ public interface ItemService {
 	TbItem getItemById(long ItemId);
 
 	EUDataGridResult getItemList(int total, int rows);
+
+	EshoppingResult createItem(TbItem item);
 }

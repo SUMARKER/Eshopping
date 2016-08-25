@@ -1,7 +1,10 @@
 package com.shopping.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import com.shopping.common.pojo.EshoppingResult;
+import com.shopping.common.utils.IDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +50,17 @@ public class ItemServiceImpl implements ItemService {
 		result.setTotal(pageInfo.getTotal());
 		result.setRows(list);
 		return result;
+	}
+
+	@Override
+	public EshoppingResult createItem(TbItem item) {
+		Long itemId = IDUtils.genItemId();
+		item.setId(itemId);
+		item.setStatus((byte) 1);
+		item.setCreated(new Date());
+		item.setUpdated(new Date());
+		itemMapper.insert(item);
+		return EshoppingResult.ok();
 	}
 
 }
