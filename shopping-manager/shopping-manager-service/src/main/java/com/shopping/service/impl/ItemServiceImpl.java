@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.shopping.common.pojo.EshoppingResult;
 import com.shopping.common.utils.IDUtils;
+import com.shopping.mapper.TbItemDescMapper;
+import com.shopping.pojo.TbItemDesc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,10 @@ import com.shopping.service.ItemService;
  */
 @Service
 public class ItemServiceImpl implements ItemService {
-	@Autowired
+	@Autowired(required = false)
 	private TbItemMapper itemMapper;
+	@Autowired(required = false)
+	private TbItemDescMapper itemDescMapper;
 
 	@Override
 	public TbItem getItemById(long itemId) {
@@ -53,13 +57,26 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public EshoppingResult createItem(TbItem item) {
+	public EshoppingResult createItem(TbItem item,String desc) throws Exception {
 		Long itemId = IDUtils.genItemId();
 		item.setId(itemId);
 		item.setStatus((byte) 1);
 		item.setCreated(new Date());
 		item.setUpdated(new Date());
 		itemMapper.insert(item);
+		EshoppingResult result =InsertItemDesc(itemId,desc);
+		if (result.getStatus()!=200){
+			throw new Exception();
+		}
+		return EshoppingResult.ok();
+	}
+	private EshoppingResult InsertItemDesc(Long itemId,String desc){
+		TbItemDesc itemDesc = new TbItemDesc();
+		itemDesc.setItemId(itemId);
+		itemDesc.setItemDesc(desc);
+		itemDesc.setCreated(new Date());
+		itemDesc.setUpdated(new Date());
+		itemDescMapper.insert(itemDesc);
 		return EshoppingResult.ok();
 	}
 
