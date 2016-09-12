@@ -24,9 +24,9 @@ import com.shopping.service.ItemService;
  */
 @Service
 public class ItemServiceImpl implements ItemService {
-	@Autowired(required = false)
+	@Autowired
 	private TbItemMapper itemMapper;
-	@Autowired(required = false)
+	@Autowired
 	private TbItemDescMapper itemDescMapper;
 
 	@Override

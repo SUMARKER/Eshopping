@@ -1,5 +1,6 @@
 package com.shopping.service.impl;
 
+import com.alibaba.druid.support.http.util.IPAddress;
 import com.shopping.common.utils.FtpUtil;
 import com.shopping.common.utils.IDUtils;
 import com.shopping.service.PictureService;

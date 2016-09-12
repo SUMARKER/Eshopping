@@ -45,8 +45,8 @@ public class IDUtils {
 		return id;
 	}
 	
-	public static void main(String[] args) {
-		for(int i=0;i< 100;i++)
-		System.out.println(genItemId());
-	}
+//	public static void main(String[] args) {
+//		for(int i=0;i< 100;i++)
+//		System.out.println(genItemId());
+//	}
 }
