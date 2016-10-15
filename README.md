@@ -14,3 +14,7 @@
 <del>1. 修改了HTTP为FTP 所以图片回显解决</del>
 <del>2. Intellij IDEA 上传失败没有解决     chrome 检查发现图片的传输TYPE    应该是text/plain    而实际是text/html    结果导致404</del>
 <del>3. 图片无法回显</del>
+
+##### *fixed*
+
+修改res.properties 里的对应配置[注意，设置FTP的服务器，需要允许访问才能让图片回显]

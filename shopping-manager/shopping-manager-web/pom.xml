@@ -34,7 +34,12 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.google.gxp</groupId>
+            <artifactId>google-gxp</artifactId>
+            <version>0.2.4-beta</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<pluginManagement>
 			<plugins>
