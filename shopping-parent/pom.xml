@@ -4,7 +4,10 @@
 	<groupId>com.whhy.net</groupId>
 	<artifactId>shopping-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <modules>
+        <module>../shopping-rest</module>
+    </modules>
+    <packaging>pom</packaging>
 
 	<!-- 集中定义依赖版本号 -->
 	<properties>
