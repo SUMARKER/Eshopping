@@ -1,18 +1,17 @@
 package com.shopping.service.impl;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-//import java.util.UUID;
-
+import com.shopping.common.utils.FtpUtil;
+import com.shopping.common.utils.IDUtils;
+import com.shopping.service.PictureService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shopping.common.utils.FtpUtil;
-import com.shopping.common.utils.IDUtils;
-import com.shopping.service.PictureService;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+//import java.util.UUID;
 
 /**
  * Created by Administrator on 2016/8/25.
@@ -32,8 +31,8 @@ public class PictureServiceImpl implements PictureService {
     @Value("${IMAGE_BASE_URL}")
     private String IMAGE_BASE_URL;
 
-	@Override
-	public Map uploadPicture(MultipartFile uploadFile) {
+    @Override
+    public Map uploadPicture(MultipartFile uploadFile) {
         Map resultMap = new HashMap<>();
         try {
             //取出文件原来的名字，为了获取其扩展名

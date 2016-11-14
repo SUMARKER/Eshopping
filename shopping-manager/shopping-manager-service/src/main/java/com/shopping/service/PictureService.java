@@ -8,6 +8,5 @@ import java.util.Map;
  * Created by Administrator on 2016/8/25.
  */
 public interface PictureService {
-    @SuppressWarnings("rawtypes")
-	Map uploadPicture(MultipartFile uploadFile);
+    Map uploadPicture(MultipartFile uploadFile);
 }
