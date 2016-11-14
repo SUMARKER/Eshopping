@@ -9,5 +9,8 @@
   <artifactId>shopping-rest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <dependencies></dependencies>
+  <dependencies>
+  <dependency>
+  </dependency>
+  </dependencies>
 </project>
