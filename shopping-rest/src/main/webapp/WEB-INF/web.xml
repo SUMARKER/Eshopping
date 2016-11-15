@@ -36,7 +36,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!--spring编码过滤器end -->
-
     <!-- springmvc的前端控制器 -->
     <servlet>
         <servlet-name>shopping</servlet-name>
