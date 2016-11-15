@@ -13,6 +13,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
+
 /**
  * ftp上传下载工具类
  * <p>Title: FtpUtil</p>
@@ -38,6 +39,7 @@ public class FtpUtil {
      * @param input    输入流
      * @return 成功返回true，否则返回false
      */
+
     public static boolean uploadFile(String host, int port, String username, String password, String basePath,
                                      String filePath, String filename, InputStream input) {
         boolean result = false;
@@ -69,6 +71,7 @@ public class FtpUtil {
                     }
                 }
             }
+
             //设置上传文件的类型为二进制类型
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
             //上传文件
@@ -144,13 +147,13 @@ public class FtpUtil {
         return result;
     }
 
-    public static void main(String[] args) {
-        try {
-            FileInputStream in = new FileInputStream(new File("D:\\temp\\image\\gaigeming.jpg"));
-            boolean flag = uploadFile("192.168.25.133", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images", "/2015/01/21", "gaigeming.jpg", in);
-            System.out.println(flag);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            FileInputStream in = new FileInputStream(new File("D:\\temp\\image\\gaigeming.jpg"));
+//            boolean flag = uploadFile("192.168.25.133", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images", "/2015/01/21", "gaigeming.jpg", in);
+//            System.out.println(flag);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

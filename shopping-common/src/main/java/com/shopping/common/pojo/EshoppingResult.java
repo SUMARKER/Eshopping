@@ -89,6 +89,7 @@ public class EshoppingResult {
      * @param clazz EshoppingResult中的object类型
      * @return
      */
+
     public static EshoppingResult formatToPojo(String jsonData, Class<?> clazz) {
         try {
             if (clazz == null) {

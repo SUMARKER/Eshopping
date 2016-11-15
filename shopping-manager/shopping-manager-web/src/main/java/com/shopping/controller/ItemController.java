@@ -34,10 +34,10 @@ public class ItemController {
         return result;
     }
 
-    @RequestMapping(value = "/item/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/item/save",method = RequestMethod.POST)
     @ResponseBody
-    private EshoppingResult createItem(TbItem item,String desc)throws Exception {
-        EshoppingResult result = itemService.createItem(item,desc);
+    private EshoppingResult createItem(TbItem item,String desc,String itemParams)throws Exception {
+        EshoppingResult result = itemService.createItem(item,desc,itemParams);
         return result;
     }
 }

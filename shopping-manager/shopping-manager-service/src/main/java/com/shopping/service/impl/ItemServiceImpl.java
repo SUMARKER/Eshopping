@@ -6,7 +6,9 @@ import java.util.List;
 import com.shopping.common.pojo.EshoppingResult;
 import com.shopping.common.utils.IDUtils;
 import com.shopping.mapper.TbItemDescMapper;
+import com.shopping.mapper.TbItemParamItemMapper;
 import com.shopping.pojo.TbItemDesc;
+import com.shopping.pojo.TbItemParamItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,60 +26,78 @@ import com.shopping.service.ItemService;
  */
 @Service
 public class ItemServiceImpl implements ItemService {
-	@Autowired(required = false)
-	private TbItemMapper itemMapper;
-	@Autowired(required = false)
-	private TbItemDescMapper itemDescMapper;
+    @Autowired
+    private TbItemMapper itemMapper;
+    @Autowired
+    private TbItemDescMapper itemDescMapper;
 
-	@Override
-	public TbItem getItemById(long itemId) {
-		// TbItem tbItem = itemMapper.selectByPrimaryKey(ItemId);
-		TbItemExample example = new TbItemExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo(itemId);
-		List<TbItem> list = itemMapper.selectByExample(example);
+    @Autowired
+    private TbItemParamItemMapper itemParamItemMapper;
 
-		if (list != null && list.size() > 0) {
-			TbItem item = list.get(0);
-			return item;
-		}
-		return null;
-	}
+    @Override
+    public TbItem getItemById(long itemId) {
+        // TbItem tbItem = itemMapper.selectByPrimaryKey(ItemId);
+        TbItemExample example = new TbItemExample();
+        Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(itemId);
+        List<TbItem> list = itemMapper.selectByExample(example);
 
-	@Override
-	public EUDataGridResult getItemList(int page, int rows) {
-		TbItemExample example = new TbItemExample();
-		PageHelper.startPage(page, rows);
-		List<TbItem> list = itemMapper.selectByExample(example);
-		EUDataGridResult result = new EUDataGridResult();
-		PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(list);
-		result.setTotal(pageInfo.getTotal());
-		result.setRows(list);
-		return result;
-	}
+        if (list != null && list.size() > 0) {
+            TbItem item = list.get(0);
+            return item;
+        }
+        return null;
+    }
 
-	@Override
-	public EshoppingResult createItem(TbItem item,String desc) throws Exception {
-		Long itemId = IDUtils.genItemId();
-		item.setId(itemId);
-		item.setStatus((byte) 1);
-		item.setCreated(new Date());
-		item.setUpdated(new Date());
-		itemMapper.insert(item);
-		EshoppingResult result =InsertItemDesc(itemId,desc);
-		if (result.getStatus()!=200){
-			throw new Exception();
-		}
-		return EshoppingResult.ok();
-	}
-	private EshoppingResult InsertItemDesc(Long itemId,String desc){
-		TbItemDesc itemDesc = new TbItemDesc();
-		itemDesc.setItemId(itemId);
-		itemDesc.setItemDesc(desc);
-		itemDesc.setCreated(new Date());
-		itemDesc.setUpdated(new Date());
-		itemDescMapper.insert(itemDesc);
-		return EshoppingResult.ok();
-	}
+    @Override
+    public EUDataGridResult getItemList(int page, int rows) {
+        TbItemExample example = new TbItemExample();
+        PageHelper.startPage(page, rows);
+        List<TbItem> list = itemMapper.selectByExample(example);
+        EUDataGridResult result = new EUDataGridResult();
+        PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(list);
+        result.setTotal(pageInfo.getTotal());
+        result.setRows(list);
+        return result;
+    }
+
+    @Override
+    public EshoppingResult createItem(TbItem item, String desc, String itemParam) throws Exception {
+        Long itemId = IDUtils.genItemId();
+        item.setId(itemId);
+        item.setStatus((byte) 1);
+        item.setCreated(new Date());
+        item.setUpdated(new Date());
+        itemMapper.insert(item);
+        EshoppingResult result = InsertItemDesc(itemId, desc);
+        if (result.getStatus() != 200) {
+            throw new Exception();
+        }
+        result =insertItemParamItem(itemId,itemParam);
+        if (result.getStatus() != 200) {
+            throw new Exception();
+        }
+        return EshoppingResult.ok();
+    }
+
+    private EshoppingResult InsertItemDesc(Long itemId, String desc) {
+        TbItemDesc itemDesc = new TbItemDesc();
+        itemDesc.setItemId(itemId);
+        itemDesc.setItemDesc(desc);
+        itemDesc.setCreated(new Date());
+        itemDesc.setUpdated(new Date());
+        itemDescMapper.insert(itemDesc);
+        return EshoppingResult.ok();
+    }
+
+    private EshoppingResult insertItemParamItem(Long itemId, String itemParam) {
+        TbItemParamItem itemParamItem = new TbItemParamItem();
+        itemParamItem.setItemId(itemId);
+        itemParamItem.setParamData(itemParam);
+        itemParamItem.setCreated(new Date());
+        itemParamItem.setUpdated(new Date());
+        itemParamItemMapper.insert(itemParamItem);
+        return EshoppingResult.ok();
+    }
 
 }

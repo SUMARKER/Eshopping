@@ -15,5 +15,5 @@ public interface ItemService {
 
 	EUDataGridResult getItemList(int total, int rows);
 
-	EshoppingResult createItem(TbItem item,String desc) throws Exception;
+	EshoppingResult createItem(TbItem item,String desc,String itemParam) throws Exception;
 }
