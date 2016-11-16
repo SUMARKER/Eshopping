@@ -1,6 +1,7 @@
 package com.shopping.controller;
 
 import com.shopping.common.pojo.EUTreeNode;
+import com.shopping.common.pojo.EshoppingResult;
 import com.shopping.service.ContentCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,4 +27,10 @@ public class ContentCategoryController {
         return list;
     }
 
+    @RequestMapping("/create")
+    @ResponseBody
+    public EshoppingResult createContentCategory(Long parentId, String name) {
+        EshoppingResult result = contentCategoryService.insertContentCategory(parentId, name);
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 package com.shopping.service;
 
 import com.shopping.common.pojo.EUTreeNode;
+import com.shopping.common.pojo.EshoppingResult;
 
 import java.util.List;
 
@@ -9,4 +10,5 @@ import java.util.List;
  */
 public interface ContentCategoryService {
     List<EUTreeNode>getCategoryList(long parentId);
+    EshoppingResult insertContentCategory(long parentId,String name);
 }

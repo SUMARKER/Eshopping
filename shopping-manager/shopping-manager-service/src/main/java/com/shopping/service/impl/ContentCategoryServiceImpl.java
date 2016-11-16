@@ -1,6 +1,7 @@
 package com.shopping.service.impl;
 
 import com.shopping.common.pojo.EUTreeNode;
+import com.shopping.common.pojo.EshoppingResult;
 import com.shopping.mapper.TbContentCategoryMapper;
 import com.shopping.pojo.TbContentCategory;
 import com.shopping.pojo.TbContentCategoryExample;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,5 +36,24 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
             resultList.add(node);
         }
         return resultList;
+    }
+
+    @Override
+    public EshoppingResult insertContentCategory(long parentId, String name) {
+        TbContentCategory contentCategory = new TbContentCategory();
+        contentCategory.setName(name);
+        contentCategory.setIsParent(false);
+        contentCategory.setStatus(1);
+        contentCategory.setParentId(parentId);
+        contentCategory.setSortOrder(1);
+        contentCategory.setCreated(new Date());
+        contentCategory.setUpdated(new Date());
+        contentCategoryMapper.insert(contentCategory);
+        TbContentCategory parentCat = contentCategoryMapper.selectByPrimaryKey(parentId);
+        if (!parentCat.getIsParent()) {
+            parentCat.setIsParent(true);
+            contentCategoryMapper.updateByPrimaryKey(parentCat);
+        }
+        return EshoppingResult.ok(contentCategory);
     }
 }
