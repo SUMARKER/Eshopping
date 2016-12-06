@@ -11,4 +11,6 @@ import java.util.List;
 public interface ContentCategoryService {
     List<EUTreeNode>getCategoryList(long parentId);
     EshoppingResult insertContentCategory(long parentId,String name);
+    //删除
+    EshoppingResult deleteContentCategory(long parentId ,long id);
 }

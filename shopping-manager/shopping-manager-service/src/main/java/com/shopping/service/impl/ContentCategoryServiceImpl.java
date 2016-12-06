@@ -56,4 +56,30 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
         }
         return EshoppingResult.ok(contentCategory);
     }
+
+    //删除叶子节点
+    @Override
+    public EshoppingResult deleteContentCategory(long parentId, long id) {
+        TbContentCategoryExample example = new TbContentCategoryExample();
+        TbContentCategoryExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(id);
+        List<TbContentCategory> list = contentCategoryMapper.selectByExample(example);
+
+        for (TbContentCategory tbcontentCategory : list) {
+            if (!tbcontentCategory.getIsParent()) {
+                contentCategoryMapper.deleteByPrimaryKey(id);
+            } else {
+                criteria.andParentIdEqualTo(id);
+                List<EUTreeNode> list2 = getCategoryList(id);
+                System.out.println(list2);
+                for (EUTreeNode node : list2) {
+                    System.out.println(node.getId());
+                    contentCategoryMapper.deleteByPrimaryKey(id);
+//                    contentCategoryMapper.deleteByPrimaryKey();
+                    deleteContentCategory(parentId, id);
+                }
+            }
+        }
+        return EshoppingResult.ok();
+    }
 }

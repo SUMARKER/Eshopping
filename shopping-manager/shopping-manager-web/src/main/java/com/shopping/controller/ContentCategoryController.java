@@ -33,4 +33,11 @@ public class ContentCategoryController {
         EshoppingResult result = contentCategoryService.insertContentCategory(parentId, name);
         return result;
     }
+    //删除子节点
+    @RequestMapping("/delete")
+    @ResponseBody
+    public EshoppingResult deleteContentCategory(@RequestParam(value = "parentId", defaultValue = "0")Long parentId,Long id){
+        EshoppingResult result = contentCategoryService.deleteContentCategory(parentId,id);
+        return result;
+    }
 }
