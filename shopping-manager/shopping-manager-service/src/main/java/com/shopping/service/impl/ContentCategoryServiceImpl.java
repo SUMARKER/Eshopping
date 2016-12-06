@@ -66,20 +66,25 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
         List<TbContentCategory> list = contentCategoryMapper.selectByExample(example);
 
         for (TbContentCategory tbcontentCategory : list) {
+            System.out.println(tbcontentCategory);
             if (!tbcontentCategory.getIsParent()) {
                 contentCategoryMapper.deleteByPrimaryKey(id);
             } else {
+
+                tbcontentCategory.setIsParent(false);
                 criteria.andParentIdEqualTo(id);
                 List<EUTreeNode> list2 = getCategoryList(id);
                 System.out.println(list2);
                 for (EUTreeNode node : list2) {
-                    System.out.println(node.getId());
+
+
                     contentCategoryMapper.deleteByPrimaryKey(id);
-//                    contentCategoryMapper.deleteByPrimaryKey();
+
                     deleteContentCategory(parentId, id);
                 }
             }
         }
         return EshoppingResult.ok();
     }
+
 }

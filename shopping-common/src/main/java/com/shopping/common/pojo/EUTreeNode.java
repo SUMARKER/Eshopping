@@ -7,6 +7,7 @@ public class EUTreeNode {
     private long id;
     private String text;
     private String state;
+//    private long parentId;
 
     public long getId() {
         return id;
@@ -31,4 +32,12 @@ public class EUTreeNode {
     public void setState(String state) {
         this.state = state;
     }
+
+//    public long getParentId() {
+//        return parentId;
+//    }
+//
+//    public void setParentId(long parentId) {
+//        this.parentId = parentId;
+//    }
 }
