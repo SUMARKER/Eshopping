@@ -40,4 +40,12 @@ public class ContentCategoryController {
         EshoppingResult result = contentCategoryService.deleteContentCategory(parentId,id);
         return result;
     }
+
+//    更新节点
+    @RequestMapping("/update")
+    @ResponseBody
+    public EshoppingResult updateContentCategory(Long id, String name){
+        EshoppingResult result = contentCategoryService.updateContentCategory(id,name);
+        return result;
+    }
 }

@@ -13,4 +13,6 @@ public interface ContentCategoryService {
     EshoppingResult insertContentCategory(long parentId,String name);
     //删除
     EshoppingResult deleteContentCategory(long parentId ,long id);
+    //更新
+    EshoppingResult updateContentCategory(long id,String name);
 }

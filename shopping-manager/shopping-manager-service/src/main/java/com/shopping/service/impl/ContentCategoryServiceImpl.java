@@ -82,4 +82,12 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
         return EshoppingResult.ok();
     }
 
+    @Override
+    public EshoppingResult updateContentCategory(long id, String name) {
+        TbContentCategory contentCategory = new TbContentCategory();
+        contentCategory.setName(name);
+        contentCategoryMapper.updateByPrimaryKey(contentCategory);
+        return EshoppingResult.ok();
+    }
+
 }
