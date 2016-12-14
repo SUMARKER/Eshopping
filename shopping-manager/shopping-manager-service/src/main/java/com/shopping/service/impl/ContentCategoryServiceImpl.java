@@ -75,7 +75,7 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
                     deleteContentCategory(parentId, id);
                 }
             } catch (Exception ex) {
-
+//删除节点没太想明白
             }
         }
 
