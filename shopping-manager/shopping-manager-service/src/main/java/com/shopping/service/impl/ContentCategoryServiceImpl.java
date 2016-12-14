@@ -3,6 +3,7 @@ package com.shopping.service.impl;
 import com.shopping.common.pojo.EUTreeNode;
 import com.shopping.common.pojo.EshoppingResult;
 import com.shopping.mapper.TbContentCategoryMapper;
+import com.shopping.pojo.TbContent;
 import com.shopping.pojo.TbContentCategory;
 import com.shopping.pojo.TbContentCategoryExample;
 import com.shopping.service.ContentCategoryService;
@@ -61,19 +62,23 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
     @Override
     public EshoppingResult deleteContentCategory(long parentId, long id) {
         TbContentCategoryExample example = new TbContentCategoryExample();
+
         TbContentCategoryExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(id);
         List<TbContentCategory> list = contentCategoryMapper.selectByExample(example);
-
-        for (TbContentCategory tbcontentCategory : list) {
-            System.out.println(tbcontentCategory);
-            if (!tbcontentCategory.getIsParent()) {
+        for (TbContentCategory tbContentCategory : list) {
+            try {
                 contentCategoryMapper.deleteByPrimaryKey(id);
-            } else {
-
+                if (tbContentCategory.getIsParent().equals(true)) {
+                    tbContentCategory.setIsParent(false);
+                    criteria.andParentIdEqualTo(id);
+                    deleteContentCategory(parentId, id);
+                }
+            } catch (Exception ex) {
 
             }
         }
+
         return EshoppingResult.ok();
     }
 
