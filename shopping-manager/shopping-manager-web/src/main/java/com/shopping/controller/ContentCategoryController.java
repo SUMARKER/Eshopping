@@ -33,19 +33,20 @@ public class ContentCategoryController {
         EshoppingResult result = contentCategoryService.insertContentCategory(parentId, name);
         return result;
     }
+
     //删除子节点
     @RequestMapping("/delete")
     @ResponseBody
-    public EshoppingResult deleteContentCategory(@RequestParam(value = "parentId", defaultValue = "0")Long parentId,Long id){
-        EshoppingResult result = contentCategoryService.deleteContentCategory(parentId,id);
+    public EshoppingResult deleteContentCategory(@RequestParam(value = "parentId", defaultValue = "0") Long parentId, Long id) {
+        EshoppingResult result = contentCategoryService.deleteContentCategory(parentId, id);
         return result;
     }
 
-//    更新节点
+    //    更新节点
     @RequestMapping("/update")
     @ResponseBody
-    public EshoppingResult updateContentCategory(Long id, String name){
-        EshoppingResult result = contentCategoryService.updateContentCategory(id,name);
+    public EshoppingResult updateContentCategory(Long id, String name) {
+        EshoppingResult result = contentCategoryService.updateContentCategory(id, name);
         return result;
     }
 }
