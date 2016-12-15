@@ -61,34 +61,30 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
     //删除叶子节点
     @Override
     public EshoppingResult deleteContentCategory(long parentId, long id) {
-        TbContentCategoryExample example = new TbContentCategoryExample();
+        TbContentCategory contentCategory = contentCategoryMapper.selectByPrimaryKey(id);
+        if (contentCategory.getIsParent()){
+            contentCategory.setIsParent(false);
+            contentCategoryMapper.deleteByPrimaryKey(id);
+            TbContentCategoryExample example = new TbContentCategoryExample();
+            TbContentCategoryExample.Criteria criteria = example.createCriteria();
+            criteria.andParentIdEqualTo(id);
+            List<TbContentCategory> list = contentCategoryMapper.selectByExample(example);
+            for (TbContentCategory tbContentCategory:list){
 
-        TbContentCategoryExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(id);
-        List<TbContentCategory> list = contentCategoryMapper.selectByExample(example);
-        for (TbContentCategory tbContentCategory : list) {
-            try {
-                contentCategoryMapper.deleteByPrimaryKey(id);
-                if (tbContentCategory.getIsParent().equals(true)) {
-                    tbContentCategory.setIsParent(false);
-                    criteria.andParentIdEqualTo(id);
-                    deleteContentCategory(parentId, id);
-                }
-            } catch (Exception ex) {
-//删除节点没太想明白
+               deleteContentCategory(id,tbContentCategory.getId());
             }
-        }
 
+        }else {
+            contentCategoryMapper.deleteByPrimaryKey(id);
+        }
         return EshoppingResult.ok();
     }
 
     @Override
     public EshoppingResult updateContentCategory(long id, String name) {
-
         TbContentCategory contentCategory = contentCategoryMapper.selectByPrimaryKey(id);
         contentCategory.setName(name);
         contentCategory.setUpdated(new Date());
-
         contentCategoryMapper.updateByPrimaryKey(contentCategory);
         return EshoppingResult.ok(contentCategory);
     }
